@@ -296,6 +296,11 @@ static HRESULT exec_print(HTMLDocument *This, DWORD nCmdexecopt, VARIANT *pvaIn,
         }
     }
 
+    // returning here fixes CORE-16884. Maybe use this until printing works.
+    ERR("Sorry, ReactOS does not support printing yet.\n");
+    return S_OK;
+
+    // For now if this is executed we get internal corruptions for unknown reasons. 
     nsres = nsIWebBrowserPrint_Print(nsprint, settings, NULL);
     if(NS_FAILED(nsres))
         ERR("Print failed: %08x\n", nsres);
